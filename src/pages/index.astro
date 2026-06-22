@@ -6,9 +6,9 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 import { getCollection } from 'astro:content';
 import FormattedDate from '../components/FormattedDate.astro';
 
-const posts = (await getCollection('blog')).sort(
-	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
-).slice(0, 3);
+const posts = (await getCollection('blog'))
+	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+	.slice(0, 5);
 ---
 
 <!doctype html>
@@ -19,101 +19,195 @@ const posts = (await getCollection('blog')).sort(
 	<body>
 		<Header />
 		<main>
-			<section class="intro">
-				<h1>Ilyas Alhassan</h1>
+			<section class="hero">
+				<p class="eyebrow">Ilyas Alhassan — Minneapolis</p>
+				<h1>I ship AI systems for a living.</h1>
 				<p class="lede">
-					I ship AI systems for a living. I write about the gap
-					between the demo and production.
-				</p>
-				<p>
-					I'm a Data Scientist and AI Engineer based in Minneapolis,
-					building production AI systems in a regulated industry. This
-					site is where I write about what I've learned — specifics,
-					scars, and the parts the literature doesn't cover.
+					I write about the gap between the demo and production —
+					what works, what breaks, and what nobody warned me about.
 				</p>
 			</section>
 
-			{posts.length > 0 && (
-				<section class="recent">
-					<h2>Recent writing</h2>
+			<section class="notes">
+				<header class="section-header">
+					<h2>Recent notes</h2>
+					<a href="/blog" class="see-all">All posts →</a>
+				</header>
+
+				{posts.length === 0 ? (
+					<p class="empty">No posts yet. First one coming soon.</p>
+				) : (
 					<ul class="post-list">
 						{posts.map(post => (
 							<li>
-								<a href={`/blog/${post.id}/`}>
-									<span class="post-title">{post.data.title}</span>
-									<FormattedDate date={post.data.pubDate} />
+								<a href={`/blog/${post.id}/`} class="post-link no-underline">
+									<div class="post-row">
+										<span class="post-title">{post.data.title}</span>
+										<span class="post-date meta">
+											<FormattedDate date={post.data.pubDate} />
+										</span>
+									</div>
+									{post.data.description && (
+										<p class="post-description">{post.data.description}</p>
+									)}
 								</a>
 							</li>
 						))}
 					</ul>
-					<p class="more">
-						<a href="/blog">See all posts →</a>
-					</p>
-				</section>
-			)}
+				)}
+			</section>
 		</main>
 		<Footer />
 	</body>
 </html>
 
 <style>
-	main {
-		max-width: 720px;
-		margin: 0 auto;
-		padding: 3rem 1rem;
+	.hero {
+		margin-bottom: var(--space-7);
 	}
-	.intro h1 {
-		font-size: 2.5rem;
-		margin-bottom: 1.25rem;
-		line-height: 1.1;
+
+	.eyebrow {
+		font-family: var(--font-mono);
+		font-size: 0.85rem;
+		color: var(--muted);
+		text-transform: none;
+		letter-spacing: 0.02em;
+		margin-bottom: var(--space-2);
 	}
+
+	.hero h1 {
+		font-size: 3rem;
+		line-height: 1.05;
+		letter-spacing: -0.03em;
+		margin-bottom: var(--space-3);
+		max-width: 14ch;
+	}
+
 	.lede {
-		font-size: 1.35rem;
+		font-size: 1.25rem;
 		line-height: 1.5;
-		color: rgb(var(--gray-dark));
-		margin-bottom: 1.5rem;
+		color: var(--muted);
+		max-width: 52ch;
+		margin: 0;
+	}
+
+	.notes {
+		margin-top: var(--space-7);
+	}
+
+	.section-header {
+		display: flex;
+		justify-content: space-between;
+		align-items: baseline;
+		margin-bottom: var(--space-3);
+		padding-bottom: var(--space-2);
+		border-bottom: 1px solid var(--rule);
+	}
+
+	.section-header h2 {
+		margin: 0;
+		font-size: 0.95rem;
+		font-weight: 600;
+		font-family: var(--font-mono);
+		color: var(--muted);
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+	}
+
+	.see-all {
+		font-size: 0.9rem;
 		font-weight: 500;
+		color: var(--teal);
+		border-bottom: none;
+		font-family: var(--font-mono);
 	}
-	.intro p {
-		font-size: 1.05rem;
-		line-height: 1.7;
-		margin-bottom: 1.25rem;
+
+	.see-all:hover {
+		color: var(--orange);
 	}
-	.recent {
-		margin-top: 4rem;
-	}
-	.recent h2 {
-		font-size: 1.4rem;
-		margin-bottom: 1.25rem;
-	}
+
 	.post-list {
 		list-style: none;
 		padding: 0;
 		margin: 0;
 	}
+
 	.post-list li {
-		margin-bottom: 0.5rem;
+		border-bottom: 1px solid var(--rule);
 	}
-	.post-list a {
+
+	.post-list li:last-child {
+		border-bottom: none;
+	}
+
+	.post-link {
+		display: block;
+		padding: var(--space-3) 0;
+		color: var(--ink);
+		border-bottom: none;
+		transition: transform 0.15s ease;
+	}
+
+	.post-link:hover {
+		color: var(--ink);
+	}
+
+	.post-link:hover .post-title {
+		color: var(--teal);
+	}
+
+	.post-row {
 		display: flex;
 		justify-content: space-between;
 		align-items: baseline;
-		padding: 0.75rem 0;
-		text-decoration: none;
-		border-bottom: 1px solid rgba(var(--gray), 0.2);
 		gap: 1rem;
+		margin-bottom: 0.35rem;
 	}
-	.post-list a:hover .post-title {
-		color: rgb(var(--accent));
-	}
+
 	.post-title {
-		font-weight: 500;
-		font-size: 1.05rem;
+		font-family: var(--font-display);
+		font-size: 1.2rem;
+		font-weight: 600;
+		color: var(--ink);
+		letter-spacing: -0.01em;
+		transition: color 0.15s ease;
 	}
-	.more {
-		margin-top: 1.5rem;
+
+	.post-date {
+		flex-shrink: 0;
+		font-size: 0.8rem;
 	}
-	.more a {
-		font-weight: 500;
+
+	.post-description {
+		font-size: 0.95rem;
+		line-height: 1.55;
+		color: var(--muted);
+		margin: 0;
+	}
+
+	.empty {
+		color: var(--muted);
+		font-style: italic;
+	}
+
+	@media (max-width: 720px) {
+		.hero h1 {
+			font-size: 2.25rem;
+			max-width: none;
+		}
+
+		.lede {
+			font-size: 1.1rem;
+		}
+
+		.post-row {
+			flex-direction: column;
+			gap: 0.25rem;
+			align-items: flex-start;
+		}
+
+		.post-title {
+			font-size: 1.1rem;
+		}
 	}
 </style>

@@ -14,11 +14,12 @@ import { SITE_TITLE } from '../consts';
 		<Header />
 		<main>
 			<article>
-				<h1>About</h1>
+				<p class="eyebrow">About</p>
+				<h1>Ilyas Alhassan</h1>
 
 				<p class="lede">
-					I ship AI systems for a living. I write about the gap between the
-					demo and the deploy.
+					I ship AI systems for a living. I write about the gap between
+					the demo and the deploy.
 				</p>
 
 				<h2>What I work on</h2>
@@ -27,24 +28,24 @@ import { SITE_TITLE } from '../consts';
 					GenAI initiatives across the company. I've shipped a multi-agent
 					sales intelligence platform serving hundreds of weekly users, a
 					production technical-support assistant retrieving over a million
-					Salesforce records, document intelligence pipelines that process PDFs
-					at scale, and decision agents that have to answer correctly the
-					first time because there isn't a second chance.
+					Salesforce records, document intelligence pipelines that process
+					PDFs at scale, and decision agents that have to answer correctly
+					the first time because there isn't a second chance.
 				</p>
 				<p>
 					Before GenAI was a category, I built classical machine learning
 					systems — recommendation engines, predictive pipelines, anomaly
 					detection — and ML pipelines for protein engineering that
-					commercialized AI-designed therapeutics. The tools change every six
-					months. The hard parts don't.
+					commercialized AI-designed therapeutics. The tools change every
+					six months. The hard parts don't.
 				</p>
 
 				<h2>What I write about</h2>
 				<p>
 					Most public writing about AI right now is either hype or theory.
 					There's a shortage of writing from the people actually shipping
-					these systems into regulated, high-stakes environments where "the
-					model hallucinated" is an incident, not a tweet.
+					these systems into regulated, high-stakes environments where
+					"the model hallucinated" is an incident, not a tweet.
 				</p>
 				<p>
 					This site is my contribution to closing that gap. Specifics over
@@ -53,17 +54,26 @@ import { SITE_TITLE } from '../consts';
 				</p>
 				<p>
 					Topics I keep returning to: grounded retrieval, evaluation that
-					survives reality, agent architecture, production failure modes, and
-					the long unglamorous middle between a demo and a system you can run
-					at three in the morning when something breaks.
+					survives reality, agent architecture, production failure modes,
+					and the long unglamorous middle between a demo and a system you
+					can run at three in the morning when something breaks.
 				</p>
 
 				<h2>Get in touch</h2>
-				<p>
-					Email: <a href="mailto:hello@ilyashassan.dev">hello@ilyashassan.dev</a><br />
-					LinkedIn: <a href="https://www.linkedin.com/in/ilyasalhassan/" target="_blank" rel="noopener noreferrer">/in/ilyasalhassan</a><br />
-					GitHub: <a href="https://github.com/ilyas-hassan" target="_blank" rel="noopener noreferrer">@ilyas-hassan</a>
-				</p>
+				<div class="contact">
+					<div class="contact-row">
+						<span class="contact-label">Email</span>
+						<a href="mailto:hello@ilyashassan.dev">hello@ilyashassan.dev</a>
+					</div>
+					<div class="contact-row">
+						<span class="contact-label">LinkedIn</span>
+						<a href="https://www.linkedin.com/in/ilyasalhassan/" target="_blank" rel="noopener noreferrer">/in/ilyasalhassan</a>
+					</div>
+					<div class="contact-row">
+						<span class="contact-label">GitHub</span>
+						<a href="https://github.com/ilyas-hassan" target="_blank" rel="noopener noreferrer">@ilyas-hassan</a>
+					</div>
+				</div>
 			</article>
 		</main>
 		<Footer />
@@ -71,33 +81,86 @@ import { SITE_TITLE } from '../consts';
 </html>
 
 <style>
-	main {
-		max-width: 720px;
-		margin: 0 auto;
-		padding: 3rem 1rem;
+	.eyebrow {
+		font-family: var(--font-mono);
+		font-size: 0.85rem;
+		color: var(--muted);
+		letter-spacing: 0.02em;
+		margin-bottom: var(--space-2);
 	}
+
 	article h1 {
-		font-size: 2.25rem;
-		margin-bottom: 1.5rem;
-		line-height: 1.1;
+		font-size: 2.75rem;
+		line-height: 1.05;
+		letter-spacing: -0.03em;
+		margin-bottom: var(--space-3);
 	}
-	article h2 {
-		font-size: 1.4rem;
-		margin-top: 2.5rem;
-		margin-bottom: 0.75rem;
-	}
+
 	.lede {
-		font-size: 1.2rem;
-		line-height: 1.6;
-		color: rgb(var(--gray-dark));
-		margin-bottom: 2rem;
+		font-size: 1.25rem;
+		line-height: 1.55;
+		color: var(--muted);
+		max-width: 52ch;
+		margin-bottom: var(--space-5);
 	}
+
+	article h2 {
+		font-size: 0.95rem;
+		font-weight: 600;
+		font-family: var(--font-mono);
+		color: var(--muted);
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		margin-top: var(--space-6);
+		margin-bottom: var(--space-3);
+		padding-bottom: var(--space-2);
+		border-bottom: 1px solid var(--rule);
+	}
+
 	article p {
-		font-size: 1.05rem;
+		font-size: 1.0625rem;
 		line-height: 1.75;
-		margin-bottom: 1.25rem;
+		color: var(--ink);
+		margin-bottom: var(--space-2);
 	}
-	article a {
-		text-decoration: underline;
+
+	.contact {
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+		margin-top: var(--space-2);
+	}
+
+	.contact-row {
+		display: flex;
+		gap: 1.5rem;
+		align-items: baseline;
+		font-size: 1.0625rem;
+	}
+
+	.contact-label {
+		font-family: var(--font-mono);
+		font-size: 0.85rem;
+		color: var(--muted);
+		min-width: 5rem;
+	}
+
+	@media (max-width: 720px) {
+		article h1 {
+			font-size: 2.25rem;
+		}
+
+		.lede {
+			font-size: 1.1rem;
+		}
+
+		.contact-row {
+			gap: 0.75rem;
+		}
+
+		.contact-label {
+			min-width: 4rem;
+			font-size: 0.8rem;
+		}
 	}
 </style>
