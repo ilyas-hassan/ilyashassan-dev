@@ -1,8 +1,14 @@
 ---
 import BaseHead from '../components/BaseHead.astro';
-import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
-import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import Footer from '../components/Footer.astro';
+import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+import { getCollection } from 'astro:content';
+import FormattedDate from '../components/FormattedDate.astro';
+
+const posts = (await getCollection('blog')).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+).slice(0, 3);
 ---
 
 <!doctype html>
@@ -13,37 +19,101 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 	<body>
 		<Header />
 		<main>
-			<h1>🧑‍🚀 Hello, Astronaut!</h1>
-			<p>
-				Welcome to the official <a href="https://astro.build/">Astro</a> blog starter template. This template
-				serves as a lightweight, minimally-styled starting point for anyone looking to build a personal
-				website, blog, or portfolio with Astro.
-			</p>
-			<p>
-				This template comes with a few integrations already configured in your
-				<code>astro.config.mjs</code> file. You can customize your setup with
-				<a href="https://astro.build/integrations">Astro Integrations</a> to add tools like Tailwind,
-				React, or Vue to your project.
-			</p>
-			<p>Here are a few ideas on how to get started with the template:</p>
-			<ul>
-				<li>Edit this page in <code>src/pages/index.astro</code></li>
-				<li>Edit the site header items in <code>src/components/Header.astro</code></li>
-				<li>Add your name to the footer in <code>src/components/Footer.astro</code></li>
-				<li>Check out the included blog posts in <code>src/content/blog/</code></li>
-				<li>Customize the blog post page layout in <code>src/layouts/BlogPost.astro</code></li>
-			</ul>
-			<p>
-				Have fun! If you get stuck, remember to
-				<a href="https://docs.astro.build/">read the docs</a>
-				or <a href="https://astro.build/chat">join us on Discord</a> to ask questions.
-			</p>
-			<p>
-				Looking for a blog template with a bit more personality? Check out
-				<a href="https://github.com/Charca/astro-blog-template">astro-blog-template</a>
-				by <a href="https://twitter.com/Charca">Maxi Ferreira</a>.
-			</p>
+			<section class="intro">
+				<h1>Ilyas Alhassan</h1>
+				<p class="lede">
+					I ship AI systems for a living. I write about the gap
+					between the demo and production.
+				</p>
+				<p>
+					I'm a Data Scientist and AI Engineer based in Minneapolis,
+					building production AI systems in a regulated industry. This
+					site is where I write about what I've learned — specifics,
+					scars, and the parts the literature doesn't cover.
+				</p>
+			</section>
+
+			{posts.length > 0 && (
+				<section class="recent">
+					<h2>Recent writing</h2>
+					<ul class="post-list">
+						{posts.map(post => (
+							<li>
+								<a href={`/blog/${post.id}/`}>
+									<span class="post-title">{post.data.title}</span>
+									<FormattedDate date={post.data.pubDate} />
+								</a>
+							</li>
+						))}
+					</ul>
+					<p class="more">
+						<a href="/blog">See all posts →</a>
+					</p>
+				</section>
+			)}
 		</main>
 		<Footer />
 	</body>
 </html>
+
+<style>
+	main {
+		max-width: 720px;
+		margin: 0 auto;
+		padding: 3rem 1rem;
+	}
+	.intro h1 {
+		font-size: 2.5rem;
+		margin-bottom: 1.25rem;
+		line-height: 1.1;
+	}
+	.lede {
+		font-size: 1.35rem;
+		line-height: 1.5;
+		color: rgb(var(--gray-dark));
+		margin-bottom: 1.5rem;
+		font-weight: 500;
+	}
+	.intro p {
+		font-size: 1.05rem;
+		line-height: 1.7;
+		margin-bottom: 1.25rem;
+	}
+	.recent {
+		margin-top: 4rem;
+	}
+	.recent h2 {
+		font-size: 1.4rem;
+		margin-bottom: 1.25rem;
+	}
+	.post-list {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+	}
+	.post-list li {
+		margin-bottom: 0.5rem;
+	}
+	.post-list a {
+		display: flex;
+		justify-content: space-between;
+		align-items: baseline;
+		padding: 0.75rem 0;
+		text-decoration: none;
+		border-bottom: 1px solid rgba(var(--gray), 0.2);
+		gap: 1rem;
+	}
+	.post-list a:hover .post-title {
+		color: rgb(var(--accent));
+	}
+	.post-title {
+		font-weight: 500;
+		font-size: 1.05rem;
+	}
+	.more {
+		margin-top: 1.5rem;
+	}
+	.more a {
+		font-weight: 500;
+	}
+</style>
