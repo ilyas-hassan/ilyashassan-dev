@@ -9,16 +9,31 @@ import FormattedDate from '../components/FormattedDate.astro';
 const posts = (await getCollection('blog'))
 	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
 	.slice(0, 5);
+
+const personJsonLd = {
+	'@context': 'https://schema.org',
+	'@type': 'Person',
+	name: 'Ilyas Alhassan',
+	url: Astro.site?.href,
+	jobTitle: 'AI Engineer',
+	description: SITE_DESCRIPTION,
+	sameAs: [
+		'https://www.linkedin.com/in/ilyasalhassan/',
+		'https://github.com/ilyas-hassan',
+		'https://x.com/yasilhas',
+	],
+};
 ---
 
 <!doctype html>
 <html lang="en">
 	<head>
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+		<script type="application/ld+json" set:html={JSON.stringify(personJsonLd)} is:inline />
 	</head>
 	<body>
 		<Header />
-		<main>
+		<main id="main-content">
 			<section class="hero">
 				<p class="eyebrow">Ilyas Alhassan — Minneapolis</p>
 				<h1>I ship AI systems for a living.</h1>

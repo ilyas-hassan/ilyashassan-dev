@@ -3,6 +3,7 @@ title: 'Welcome'
 description: 'What this site is, what it isn''t, and what to expect.'
 pubDate: 'Jun 22 2026'
 readingTime: '2 min read'
+heroImage: './welcome-hero.jpg'
 ---
 
 This is a new site, and a new way I'm working in public.

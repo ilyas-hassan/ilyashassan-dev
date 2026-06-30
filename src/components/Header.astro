@@ -3,6 +3,8 @@ import { SITE_TITLE } from '../consts';
 import HeaderLink from './HeaderLink.astro';
 ---
 
+<a href="#main-content" class="skip-link">Skip to content</a>
+
 <header>
 	<nav>
 		<a href="/" class="brand no-underline">{SITE_TITLE}</a>
@@ -34,6 +36,27 @@ import HeaderLink from './HeaderLink.astro';
 </header>
 
 <style>
+	.skip-link {
+		position: absolute;
+		top: -100%;
+		left: var(--space-2);
+		z-index: 100;
+		background: var(--teal);
+		color: var(--paper);
+		padding: 0.6rem 1rem;
+		border-radius: 4px;
+		font-family: var(--font-mono);
+		font-size: 0.9rem;
+		font-weight: 600;
+		text-decoration: none;
+		border-bottom: none;
+		transition: top 0.15s ease;
+	}
+
+	.skip-link:focus {
+		top: var(--space-2);
+	}
+
 	header {
 		border-bottom: 1px solid var(--rule);
 		background: var(--paper);

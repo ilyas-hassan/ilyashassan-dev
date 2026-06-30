@@ -3,6 +3,7 @@ title: "You probably don't have an agent"
 description: "Why most production GenAI systems are workflows wearing agent costumes — and why naming that distinction correctly matters more than it sounds."
 pubDate: '2026-06-29'
 readingTime: '9 min read'
+heroImage: './welcome-hero.jpg'
 ---
 
 There's a specific kind of evening you spend after you've built an agent for something that didn't need to be one. You're three coffee cups in, staring at a graph executor trace that says the node fired but the output is wrong, and you slowly realize the problem isn't the bug you're chasing. The problem is that you spent six weeks building a graph to solve what was always a pipeline.

@@ -1,0 +1,93 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { SITE_TITLE } from '../consts';
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={`Page not found | ${SITE_TITLE}`} description="This page doesn't exist." />
+	</head>
+	<body>
+		<Header />
+		<main id="main-content">
+			<section class="not-found">
+				<p class="eyebrow">404</p>
+				<h1>This page doesn't exist.</h1>
+				<p class="lede">
+					The link might be broken, or the page may have moved. Try the
+					homepage, or browse recent notes below.
+				</p>
+				<div class="links">
+					<a href="/" class="no-underline">← Back home</a>
+					<a href="/blog" class="no-underline">Browse Notes →</a>
+				</div>
+			</section>
+		</main>
+		<Footer />
+	</body>
+</html>
+
+<style>
+	.not-found {
+		padding: var(--space-7) 0;
+	}
+
+	.eyebrow {
+		font-family: var(--font-mono);
+		font-size: 0.85rem;
+		color: var(--orange);
+		letter-spacing: 0.05em;
+		margin-bottom: var(--space-2);
+	}
+
+	.not-found h1 {
+		font-size: 2.5rem;
+		line-height: 1.1;
+		letter-spacing: -0.03em;
+		margin-bottom: var(--space-3);
+		max-width: 16ch;
+	}
+
+	.lede {
+		font-size: 1.15rem;
+		line-height: 1.55;
+		color: var(--muted);
+		max-width: 48ch;
+		margin: 0 0 var(--space-4) 0;
+	}
+
+	.links {
+		display: flex;
+		gap: var(--space-4);
+		font-family: var(--font-mono);
+		font-size: 0.95rem;
+	}
+
+	.links a {
+		color: var(--teal);
+		border-bottom: none;
+	}
+
+	.links a:hover {
+		color: var(--orange);
+	}
+
+	@media (max-width: 720px) {
+		.not-found h1 {
+			font-size: 2rem;
+			max-width: none;
+		}
+
+		.lede {
+			font-size: 1.05rem;
+		}
+
+		.links {
+			flex-direction: column;
+			gap: var(--space-2);
+		}
+	}
+</style>

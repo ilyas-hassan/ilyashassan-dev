@@ -2,4 +2,4 @@
 // You can import this data from anywhere in your site by using the `import` keyword.
 
 export const SITE_TITLE = 'Ilyas Alhassan';
-export const SITE_DESCRIPTION = 'Notes on Shipping grounded AI agents in production.';
+export const SITE_DESCRIPTION = 'Notes on shipping grounded AI agents in production.';
